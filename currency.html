@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Currency Converter</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+<style>
+  body { background: #111827; color: white; }
+  .choices { background: #1f2937; border-radius: 8px; }
+  .choices__inner { background: #1f2937; color: white; }
+  .btn { padding: 12px; background: #4f46e5; border-radius: 8px; font-weight: 600; width: 100%; }
+  .btn:hover { background: #6366f1; transform: scale(1.05); }
+</style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+
+<div class="bg-gray-900 rounded-2xl p-6 shadow-xl w-96">
+  <h1 class="text-2xl font-bold text-center text-indigo-400 mb-4">Currency Converter</h1>
+
+  <div class="mb-4">
+    <label>From:</label>
+    <select id="fromCurrency"></select>
+  </div>
+
+  <div class="mb-4">
+    <label>To:</label>
+    <select id="toCurrency"></select>
+  </div>
+
+  <div class="mb-4">
+    <label>Amount:</label>
+    <input type="number" id="amount" class="w-full p-2 rounded bg-gray-800" placeholder="Enter amount">
+  </div>
+
+  <div class="mb-4">
+    <button onclick="convertCurrency()" class="btn">Convert</button>
+  </div>
+
+  <div id="result" class="text-center text-xl mt-4 text-indigo-300"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+<script>
+  // All currencies (fiat + crypto for search only)
+  const currencies = [
+    "USD","EUR","INR","GBP","JPY","AUD","CAD","CHF","CNY","SEK","NZD",
+    "BTC","ETH","BNB","USDT","ADA","SOL","DOGE","XRP","LTC","DOT"
+  ];
+
+  // Only these are supported for API conversion
+  const fiatCurrencies = ["USD","EUR","INR","GBP","JPY","AUD","CAD","CHF","CNY","SEK","NZD"];
+
+  const fromSelect = document.getElementById("fromCurrency");
+  const toSelect = document.getElementById("toCurrency");
+
+  // Populate dropdowns
+  currencies.forEach(cur => {
+    const option1 = new Option(cur, cur);
+    const option2 = new Option(cur, cur);
+    fromSelect.add(option1);
+    toSelect.add(option2);
+  });
+
+  // Initialize Choices.js
+  const fromChoices = new Choices(fromSelect, { searchEnabled: true, shouldSort: false, itemSelectText: '', placeholderValue: 'Select currency' });
+  const toChoices = new Choices(toSelect, { searchEnabled: true, shouldSort: false, itemSelectText: '', placeholderValue: 'Select currency' });
+
+  async function convertCurrency() {
+    const from = fromSelect.value;
+    const to = toSelect.value;
+    const amount = parseFloat(document.getElementById("amount").value);
+
+    if (!amount || isNaN(amount)) {
+      document.getElementById("result").innerText = "Enter a valid amount!";
+      return;
+    }
+
+    // Check for fiat only
+    if (!fiatCurrencies.includes(from) || !fiatCurrencies.includes(to)) {
+      document.getElementById("result").innerText = "Crypto conversion not supported yet!";
+      return;
+    }
+
+    try {
+      // Use exchangerate.host API
+      const res = await fetch(`https://api.exchangerate.host/convert?from=${from}&to=${to}&amount=${amount}`);
+      const data = await res.json();
+      if (data.result !== undefined) {
+        document.getElementById("result").innerText = `${amount} ${from} = ${data.result.toFixed(2)} ${to}`;
+      } else {
+        document.getElementById("result").innerText = "Conversion failed!";
+      }
+    } catch (err) {
+      document.getElementById("result").innerText = "Error fetching rates!";
+      console.error(err);
+    }
+  }
+</script>
+
+<style>
+/* Choices.js dark theme overrides */
+.choices {
+  background: #1f2937 !important;
+  border-radius: 8px;
+}
+.choices__inner {
+  background: #1f2937 !important;
+  color: white !important;
+}
+.choices__list--dropdown {
+  background: #1f2937 !important;
+  color: white !important;
+}
+.choices__list--dropdown .choices__item--selectable {
+  color: white !important; /* this is the dropdown items */
+}
+.choices__list--dropdown .choices__item--selectable.is-highlighted {
+  background-color: #4f46e5 !important; /* highlighted item */
+  color: white !important;
+}
+.choices__list--dropdown .choices__item--choice {
+  color: white !important;
+}
+</style>
+
+</body>
+</html>
