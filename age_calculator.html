@@ -23,6 +23,10 @@
     <div id="result" class="mt-6 text-lg text-green-400 font-medium"></div>
   </div>
 
+  <video autoplay muted loop playsinline id="bgVideo"
+    class="fixed top-0 left-0 w-full h-full object-cover -z-10 brightness-75">
+    <source src="assets/background_video.mp4" type="video/mp4" />
+  </video>
   <script>
     function calculateAge() {
       const dob = document.getElementById("dob").value;
