@@ -1,21 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Age Calculator</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen">
+<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen relative overflow-hidden">
 
-  <div class="bg-gray-800 p-8 rounded-2xl shadow-lg w-[350px] text-center">
+  <!-- Background Video -->
+  <video autoplay muted loop playsinline id="bgVideo"
+    class="fixed top-0 left-0 w-full h-full object-cover z-[-1] brightness-75">
+    <source src="assets/background_video.mp4" type="video/mp4" />
+  </video>
+
+  <!-- Overlay for readability -->
+  <div class="fixed top-0 left-0 w-full h-full bg-black/40 z-[-1]"></div>
+
+  <!-- Main Card -->
+  <div class="bg-gray-800 p-8 rounded-2xl shadow-lg w-[350px] text-center relative z-10">
     <h1 class="text-2xl font-semibold mb-6 text-blue-400">🧮 Age Calculator</h1>
 
     <label for="dob" class="block text-sm mb-2 text-gray-300">Enter Your Date of Birth:</label>
     <input type="date" id="dob" class="w-full p-2 rounded-md text-black outline-none">
 
-    <button 
-      onclick="calculateAge()" 
+    <button onclick="calculateAge()" 
       class="bg-blue-500 hover:bg-blue-600 w-full mt-4 py-2 rounded-md font-semibold transition">
       Calculate Age
     </button>
@@ -23,10 +32,6 @@
     <div id="result" class="mt-6 text-lg text-green-400 font-medium"></div>
   </div>
 
-  <video autoplay muted loop playsinline id="bgVideo"
-    class="fixed top-0 left-0 w-full h-full object-cover -z-10 brightness-75">
-    <source src="assets/background_video.mp4" type="video/mp4" />
-  </video>
   <script>
     function calculateAge() {
       const dob = document.getElementById("dob").value;
@@ -51,12 +56,11 @@
         months += 12;
       }
 
-      document.getElementById("result").innerHTML = 
-        `🎂 You are <span class="text-yellow-300">${years}</span> years, 
-        <span class="text-yellow-300">${months}</span> months, 
-        and <span class="text-yellow-300">${days}</span> days old.`;
+      document.getElementById("result").innerHTML =
+        `🎂 You are <span class='text-yellow-300'>${years}</span> years, 
+         <span class='text-yellow-300'>${months}</span> months, 
+         and <span class='text-yellow-300'>${days}</span> days old.`;
     }
   </script>
-
 </body>
 </html>
