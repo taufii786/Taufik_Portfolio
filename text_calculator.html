@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Text Calculator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen">
+
+  <div class="bg-gray-800 p-8 rounded-2xl shadow-lg w-[400px] text-center">
+    <h1 class="text-2xl font-semibold mb-6 text-blue-400">📝 Text Calculator</h1>
+
+    <textarea id="textInput" rows="6" class="w-full p-3 rounded-md text-black outline-none" placeholder="Type or paste your text here..."></textarea>
+
+    <button onclick="analyzeText()" class="bg-blue-500 hover:bg-blue-600 w-full mt-4 py-2 rounded-md font-semibold transition">
+      Analyze Text
+    </button>
+
+    <div id="result" class="mt-6 text-lg text-green-400 font-medium"></div>
+  </div>
+
+  <script>
+    function analyzeText() {
+      const text = document.getElementById("textInput").value.trim();
+      if (!text) {
+        document.getElementById("result").innerHTML = "⚠️ Please enter some text.";
+        return;
+      }
+
+      const words = text.split(/\s+/).filter(word => word.length > 0).length;
+      const chars = text.length;
+      const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0).length;
+
+      document.getElementById("result").innerHTML = `
+        📖 Words: <span class='text-yellow-300'>${words}</span><br>
+        🔤 Characters: <span class='text-yellow-300'>${chars}</span><br>
+        🗣️ Sentences: <span class='text-yellow-300'>${sentences}</span>
+      `;
+    }
+  </script>
+</body>
+</html>
