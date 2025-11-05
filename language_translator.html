@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔤 Language Translator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen">
+
+  <div class="bg-gray-800 p-8 rounded-2xl shadow-lg w-[90%] max-w-2xl text-center">
+    <h1 class="text-2xl font-semibold mb-6 text-indigo-400">🔤 Language Translator</h1>
+
+    <p class="text-gray-300 mb-4 text-sm">
+      Enter text below, select a target language, and click Translate.
+    </p>
+
+    <!-- Input -->
+    <textarea id="inputText"
+              class="w-full h-32 p-3 rounded-md text-black text-sm outline-none"
+              placeholder="Type text to translate..."></textarea>
+
+    <!-- Language Selector -->
+    <div class="mt-4">
+      <label for="language" class="text-sm text-indigo-300">Select Language:</label>
+      <select id="language"
+              class="mt-2 w-full p-2 rounded-md text-black outline-none text-sm">
+        <option value="en">English</option>
+        <option value="hi">Hindi</option>
+        <option value="es">Spanish</option>
+        <option value="fr">French</option>
+        <option value="de">German</option>
+        <option value="ar">Arabic</option>
+        <option value="zh">Chinese</option>
+        <option value="ru">Russian</option>
+        <option value="ja">Japanese</option>
+        <option value="mr">Marathi</option>
+      </select>
+    </div>
+
+    <!-- Translate Button -->
+    <button id="translateBtn"
+            class="bg-indigo-500 hover:bg-indigo-600 w-full mt-5 py-2 rounded-md font-semibold transition">
+      Translate
+    </button>
+
+    <!-- Output -->
+    <div id="output"
+         class="mt-6 bg-white text-black p-4 rounded-md min-h-[100px] text-left overflow-auto text-sm">
+      Translation will appear here...
+    </div>
+  </div>
+
+  <script>
+    const translateBtn = document.getElementById("translateBtn");
+    const inputText = document.getElementById("inputText");
+    const output = document.getElementById("output");
+    const language = document.getElementById("language");
+
+    translateBtn.addEventListener("click", async () => {
+      const text = inputText.value.trim();
+      const targetLang = language.value;
+
+      if (!text) {
+        output.textContent = "⚠️ Please enter some text first.";
+        return;
+      }
+
+      output.textContent = "⏳ Translating...";
+
+      try {
+        const res = await fetch("https://api.mymemory.translated.net/get?q=" + encodeURIComponent(text) + "&langpair=en|" + targetLang);
+        const data = await res.json();
+        const translated = data.responseData.translatedText;
+
+        output.innerHTML = `<b>Translated:</b><br>${translated}`;
+      } catch (error) {
+        output.textContent = "❌ Translation failed. Please try again.";
+      }
+    });
+  </script>
+
+</body>
+</html>
