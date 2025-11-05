@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Unit Converter</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen relative overflow-hidden">
+
+  <video autoplay muted loop playsinline class="fixed top-0 left-0 w-full h-full object-cover z-[-1] brightness-75">
+    <source src="assets/background_video.mp4" type="video/mp4" />
+  </video>
+  <div class="fixed inset-0 bg-black/40 z-[-1]"></div>
+
+  <div class="bg-gray-800 p-8 rounded-2xl shadow-lg w-[420px] text-center relative z-10">
+    <h1 class="text-2xl font-semibold mb-4 text-indigo-300">📦 Unit Converter</h1>
+
+    <input id="uValue" type="number" placeholder="Enter value" class="p-2 rounded text-black w-full mb-3">
+    <select id="uType" class="p-2 rounded text-black w-full mb-3">
+      <option value="length">Length (m ↔ ft)</option>
+      <option value="mass">Mass (kg ↔ lb)</option>
+      <option value="volume">Volume (L ↔ gal)</option>
+    </select>
+
+    <select id="uFrom" class="p-2 rounded text-black w-full mb-3"></select>
+    <select id="uTo" class="p-2 rounded text-black w-full mb-3"></select>
+
+    <button onclick="convertUnit()" class="bg-indigo-500 hover:bg-indigo-600 py-2 rounded w-full">Convert</button>
+
+    <div id="uResult" class="mt-4 text-yellow-300"></div>
+  </div>
+
+<script>
+const mapping = {
+  length: { units:['m','ft'], convert: (v, from, to) => {
+    if(from==='m' && to==='ft') return v*3.28084;
+    if(from==='ft' && to==='m') return v/3.28084;
+    return v;
+  }},
+  mass: { units:['kg','lb'], convert: (v, from, to) => {
+    if(from==='kg' && to==='lb') return v*2.20462;
+    if(from==='lb' && to==='kg') return v/2.20462;
+    return v;
+  }},
+  volume: { units:['L','gal'], convert: (v, from, to) => {
+    if(from==='L' && to==='gal') return v*0.264172;
+    if(from==='gal' && to==='L') return v/0.264172;
+    return v;
+  }}
+};
+
+const uType = document.getElementById('uType');
+const uFrom = document.getElementById('uFrom');
+const uTo = document.getElementById('uTo');
+
+function populate(){
+  const t = uType.value;
+  uFrom.innerHTML = '';
+  uTo.innerHTML = '';
+  mapping[t].units.forEach(u => {
+    const o1 = document.createElement('option'); o1.value = u; o1.text = u;
+    const o2 = o1.cloneNode(true);
+    uFrom.appendChild(o1); uTo.appendChild(o2);
+  });
+}
+uType.addEventListener('change', populate);
+populate();
+
+function convertUnit(){
+  const v = parseFloat(document.getElementById('uValue').value);
+  if(isNaN(v)){ document.getElementById('uResult').innerText='Enter a number'; return; }
+  const t = uType.value, from = uFrom.value, to = uTo.value;
+  const out = mapping[t].convert(v, from, to);
+  document.getElementById('uResult').innerHTML = `${v} ${from} = <strong>${out.toFixed(3)}</strong> ${to}`;
+}
+</script>
+</body>
+</html>

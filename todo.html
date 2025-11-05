@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>To-Do List</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen relative overflow-hidden">
+
+  <video autoplay muted loop playsinline class="fixed top-0 left-0 w-full h-full object-cover z-[-1] brightness-75">
+    <source src="assets/background_video.mp4" type="video/mp4" />
+  </video>
+  <div class="fixed inset-0 bg-black/40 z-[-1]"></div>
+
+  <div class="bg-gray-800 p-6 rounded-2xl shadow-lg w-[420px] relative z-10">
+    <h1 class="text-2xl font-semibold mb-4 text-indigo-300">🗓️ To-Do List</h1>
+
+    <div class="flex gap-2 mb-4">
+      <input id="taskInput" class="flex-1 p-2 rounded text-black" placeholder="Add a new task">
+      <button onclick="addTask()" class="bg-indigo-500 px-4 rounded">Add</button>
+    </div>
+
+    <ul id="taskList" class="space-y-2 text-gray-200"></ul>
+
+  </div>
+
+<script>
+let tasks = JSON.parse(localStorage.getItem('tasks_v1')||'[]');
+const taskList = document.getElementById('taskList');
+
+function render(){
+  taskList.innerHTML = '';
+  tasks.forEach((t, i)=> {
+    const li = document.createElement('li');
+    li.className = 'flex items-center justify-between bg-gray-900/30 p-2 rounded';
+    li.innerHTML = `<div>
+                      <input type="checkbox" ${t.done? 'checked':''} onchange="toggleDone(${i})">
+                      <span style="margin-left:8px; ${t.done? 'text-decoration:line-through; opacity:0.6':''}">${t.text}</span>
+                    </div>
+                    <div>
+                      <button onclick="deleteTask(${i})" class="text-red-400">Delete</button>
+                    </div>`;
+    taskList.appendChild(li);
+  });
+}
+function save(){ localStorage.setItem('tasks_v1', JSON.stringify(tasks)); render(); }
+
+function addTask(){
+  const v = document.getElementById('taskInput').value.trim();
+  if(!v) return;
+  tasks.push({text:v, done:false});
+  document.getElementById('taskInput').value='';
+  save();
+}
+function toggleDone(i){ tasks[i].done = !tasks[i].done; save(); }
+function deleteTask(i){ tasks.splice(i,1); save(); }
+render();
+</script>
+</body>
+</html>
