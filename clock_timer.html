@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Clock / Timer / Stopwatch</title>
+  <title>Clock / Timer / Stopwatch (IST)</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-900 text-white flex items-center justify-center min-h-screen relative overflow-hidden">
@@ -16,10 +16,10 @@
 
   <!-- Main Card -->
   <div class="bg-gray-800 p-8 rounded-2xl shadow-lg w-[420px] text-center relative z-10">
-    <h1 class="text-2xl font-semibold mb-6 text-indigo-400">⏰ Clock • Timer • Stopwatch</h1>
+    <h1 class="text-2xl font-semibold mb-6 text-indigo-400">⏰ Indian Clock • Stopwatch</h1>
 
-    <!-- Live Clock -->
-    <div class="text-sm text-gray-300 mb-1">Current Time</div>
+    <!-- Live Indian Time -->
+    <div class="text-sm text-gray-300 mb-1">Indian Standard Time (IST)</div>
     <div id="clock" class="text-4xl font-mono text-yellow-300 mb-6">--:--:--</div>
 
     <!-- Stopwatch Section -->
@@ -34,12 +34,17 @@
   </div>
 
   <script>
-    // ⏰ Live Clock
+    // ⏰ Indian Clock (IST: UTC+05:30)
     function updateClock() {
-      const now = new Date();
-      const hours = String(now.getHours()).padStart(2, '0');
-      const mins = String(now.getMinutes()).padStart(2, '0');
-      const secs = String(now.getSeconds()).padStart(2, '0');
+      const nowUTC = new Date();
+      // Get time in milliseconds + add 5.5 hours (19800000 ms)
+      const istOffset = 5.5 * 60 * 60 * 1000;
+      const istTime = new Date(nowUTC.getTime() + istOffset);
+
+      const hours = String(istTime.getUTCHours()).padStart(2, '0');
+      const mins  = String(istTime.getUTCMinutes()).padStart(2, '0');
+      const secs  = String(istTime.getUTCSeconds()).padStart(2, '0');
+
       document.getElementById("clock").textContent = `${hours}:${mins}:${secs}`;
     }
     setInterval(updateClock, 1000);
@@ -61,7 +66,7 @@
     }
 
     function startStopwatch() {
-      if (stopwatchInterval) return; // prevent multiple intervals
+      if (stopwatchInterval) return;
       stopwatchInterval = setInterval(() => {
         elapsedSeconds++;
         updateStopwatchDisplay();
