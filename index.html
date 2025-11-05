@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="relative font-[Inter] bg-gray-900 text-white transition-colors duration-500">
+<body class="relative font-[Inter] transition-all duration-500">
 
   <!-- Background Video -->
   <video autoplay muted loop playsinline id="bgVideo"
@@ -42,7 +42,7 @@
       </nav>
 
       <div class="flex items-center gap-4">
-        <!-- Dark/Light Mode Toggle -->
+        <!-- 🌙 Dark/Light Mode Toggle -->
         <button id="themeToggle" class="text-2xl transition hover:scale-110">🌙</button>
 
         <!-- Mobile Menu -->
@@ -92,49 +92,19 @@
         </div>
       </div>
 
-      <!-- 🔧 TOOLS SECTION -->
+      <!-- TOOLS SECTION -->
       <h3 class="text-2xl font-bold text-center text-indigo-300 mt-10 mb-4" data-aos="fade-up">Tools</h3>
       <div class="flex justify-center gap-6 flex-wrap text-center">
-
-        <a href="calculator.html" target="_blank" class="tool-btn hover:scale-110 transition" data-aos="zoom-in">
-          🧮<br><span class="text-indigo-200 font-medium">Calculator</span>
-        </a>
-
-        <a href="currency.html" target="_blank" class="tool-btn hover:scale-110 transition" data-aos="zoom-in">
-          💱<br><span class="text-indigo-200 font-medium">Currency Converter</span>
-        </a>
-
-        <a href="age_calculator.html" target="_blank" class="tool-btn hover:scale-110 transition" data-aos="zoom-in">
-          🎂<br><span class="text-indigo-200 font-medium">Age Calculator</span>
-        </a>
-
-        <a href="bmi_calculator.html" target="_blank" class="tool-btn hover:scale-110 transition" data-aos="zoom-in">
-          ⚖️<br><span class="text-indigo-200 font-medium">BMI Calculator</span>
-        </a>
-
-        <a href="text_calculator.html" target="_blank" class="tool-btn hover:scale-110 transition" data-aos="zoom-in">
-          📝<br><span class="text-indigo-200 font-medium">Text Calculator</span>
-        </a>
-
-        <a href="percentage_calculator.html" target="_blank" class="tool-btn hover:scale-110 transition" data-aos="zoom-in">
-          📊<br><span class="text-indigo-200 font-medium">Percentage Calculator</span>
-        </a>
-
-        <a href="temperature_converter.html" target="_blank" class="tool-btn hover:scale-110 transition" data-aos="zoom-in">
-          🌡️<br><span class="text-indigo-200 font-medium">Temperature Converter</span>
-        </a>
-
-        <a href="clock_timer.html" target="_blank" class="tool-btn hover:scale-110 transition" data-aos="zoom-in">
-          ⏰<br><span class="text-indigo-200 font-medium">Clock / Timer</span>
-        </a>
-
-        <a href="todo.html" target="_blank" class="tool-btn hover:scale-110 transition" data-aos="zoom-in">
-          🗓️<br><span class="text-indigo-200 font-medium">To-Do List</span>
-        </a>
-
-        <a href="unit_converter.html" target="_blank" class="tool-btn hover:scale-110 transition" data-aos="zoom-in">
-          📦<br><span class="text-indigo-200 font-medium">Unit Converter</span>
-        </a>
+        <a href="calculator.html" target="_blank" class="tool-btn hover:scale-110 transition" data-aos="zoom-in">🧮<br><span class="text-indigo-200 font-medium">Calculator</span></a>
+        <a href="currency.html" target="_blank" class="tool-btn hover:scale-110 transition" data-aos="zoom-in">💱<br><span class="text-indigo-200 font-medium">Currency Converter</span></a>
+        <a href="age_calculator.html" target="_blank" class="tool-btn hover:scale-110 transition" data-aos="zoom-in">🎂<br><span class="text-indigo-200 font-medium">Age Calculator</span></a>
+        <a href="bmi_calculator.html" target="_blank" class="tool-btn hover:scale-110 transition" data-aos="zoom-in">⚖️<br><span class="text-indigo-200 font-medium">BMI Calculator</span></a>
+        <a href="text_calculator.html" target="_blank" class="tool-btn hover:scale-110 transition" data-aos="zoom-in">📝<br><span class="text-indigo-200 font-medium">Text Calculator</span></a>
+        <a href="percentage_calculator.html" target="_blank" class="tool-btn hover:scale-110 transition" data-aos="zoom-in">📊<br><span class="text-indigo-200 font-medium">Percentage Calculator</span></a>
+        <a href="temperature_converter.html" target="_blank" class="tool-btn hover:scale-110 transition" data-aos="zoom-in">🌡️<br><span class="text-indigo-200 font-medium">Temperature Converter</span></a>
+        <a href="clock_timer.html" target="_blank" class="tool-btn hover:scale-110 transition" data-aos="zoom-in">⏰<br><span class="text-indigo-200 font-medium">Clock / Timer</span></a>
+        <a href="todo.html" target="_blank" class="tool-btn hover:scale-110 transition" data-aos="zoom-in">🗓️<br><span class="text-indigo-200 font-medium">To-Do List</span></a>
+        <a href="unit_converter.html" target="_blank" class="tool-btn hover:scale-110 transition" data-aos="zoom-in">📦<br><span class="text-indigo-200 font-medium">Unit Converter</span></a>
       </div>
     </div>
   </section>
@@ -197,21 +167,29 @@
   <script>
     AOS.init({ duration: 1000, once: true });
 
-    // Dark / Light Mode
+    // 🌙 Dark / ☀️ Light Mode Toggle
     const themeToggle = document.getElementById("themeToggle");
     const html = document.documentElement;
 
-    if (localStorage.getItem("theme") === "light") {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "light") {
       html.classList.remove("dark");
+      html.classList.add("light");
       themeToggle.textContent = "☀️";
+    } else {
+      html.classList.remove("light");
+      html.classList.add("dark");
+      themeToggle.textContent = "🌙";
     }
 
     themeToggle.addEventListener("click", () => {
       if (html.classList.contains("dark")) {
         html.classList.remove("dark");
+        html.classList.add("light");
         themeToggle.textContent = "☀️";
         localStorage.setItem("theme", "light");
       } else {
+        html.classList.remove("light");
         html.classList.add("dark");
         themeToggle.textContent = "🌙";
         localStorage.setItem("theme", "dark");
