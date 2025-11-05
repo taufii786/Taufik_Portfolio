@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -14,10 +14,14 @@
   <!-- FontAwesome -->
   <script src="https://kit.fontawesome.com/4e82952628.js" crossorigin="anonymous"></script>
 
+  <!-- AOS Animation Library -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
   <!-- External CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="relative text-white font-[Inter]">
+
+<body class="relative font-[Inter] bg-gray-900 text-white transition-colors duration-500">
 
   <!-- Background Video -->
   <video autoplay muted loop playsinline id="bgVideo"
@@ -29,29 +33,37 @@
   <header class="fixed w-full z-30 bg-black/30 backdrop-blur-md shadow-md">
     <div class="max-w-6xl mx-auto flex items-center justify-between p-4">
       <a href="#home" class="font-bold text-2xl logo">GALAXY OF INNOVATION</a>
+
       <nav class="space-x-6 hidden md:block">
-        <a href="#home">Home</a>
-        <a href="#services">Services</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
+        <a href="#home" class="hover:text-indigo-400 transition">Home</a>
+        <a href="#services" class="hover:text-indigo-400 transition">Services</a>
+        <a href="#about" class="hover:text-indigo-400 transition">About</a>
+        <a href="#contact" class="hover:text-indigo-400 transition">Contact</a>
       </nav>
-      <button id="menuBtn" class="md:hidden text-2xl">☰</button>
+
+      <div class="flex items-center gap-4">
+        <!-- Dark/Light Mode Toggle -->
+        <button id="themeToggle" class="text-2xl transition hover:scale-110">🌙</button>
+
+        <!-- Mobile Menu -->
+        <button id="menuBtn" class="md:hidden text-2xl">☰</button>
+      </div>
     </div>
   </header>
 
   <!-- HOME -->
-  <section id="home" class="page min-h-screen flex items-center py-24 px-6">
+  <section id="home" class="page min-h-screen flex items-center py-24 px-6" data-aos="fade-up">
     <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-center">
       <div>
-        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight home-title">
+        <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight home-title">
           Hi, I'm <span class="text-indigo-400">Taufik Sayyed</span>
         </h1>
         <p class="mt-4 text-lg text-slate-200">
           I build beautiful, responsive websites and interfaces. I design clean UX and write efficient front-end code.
         </p>
         <div class="mt-6 flex gap-4">
-          <a href="#contact" class="btn">Contact Me</a>
-          <a href="#services" class="btn btn-outline">My Services</a>
+          <a href="#contact" class="btn transition hover:scale-105">Contact Me</a>
+          <a href="#services" class="btn btn-outline transition hover:scale-105">My Services</a>
         </div>
       </div>
     </div>
@@ -59,98 +71,91 @@
 
   <!-- SERVICES -->
   <section id="services" class="page py-20 px-6 hidden">
-    <div class="max-w-6xl mx-auto bg-black/40 backdrop-blur-md rounded-2xl p-10">
+    <div class="max-w-6xl mx-auto bg-black/40 backdrop-blur-md rounded-2xl p-10" data-aos="fade-up">
       <h2 class="text-3xl font-bold text-center text-indigo-300 mb-4">My Services</h2>
       <p class="text-center text-indigo-100 mb-8">
         Crafting Responsive, Engaging, and SEO-Optimized Websites, Mobile Apps, and Portfolio Websites Tailored to Your Needs.
       </p>
 
-      <div class="grid gap-6 md:grid-cols-3">
-        <div class="card">
+      <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+        <div class="card hover:scale-105 transition" data-aos="zoom-in">
           <h3>Web Development</h3>
           <p>Crafting responsive, engaging, and SEO-optimized websites tailored to your business needs.</p>
         </div>
-        <div class="card">
+        <div class="card hover:scale-105 transition" data-aos="zoom-in">
           <h3>App Development</h3>
           <p>Creating seamless mobile app solutions integrated with your website for user engagement.</p>
         </div>
-        <div class="card">
+        <div class="card hover:scale-105 transition" data-aos="zoom-in">
           <h3>Portfolio Websites</h3>
           <p>Showcase your work beautifully with responsive and modern portfolio websites.</p>
         </div>
       </div>
 
       <!-- 🔧 TOOLS SECTION -->
-      <!-- 🔧 TOOLS SECTION -->
-<!-- 🔧 TOOLS SECTION -->
-<!-- 🔧 TOOLS SECTION -->
-<h3 class="text-2xl font-bold text-center text-indigo-300 mt-10 mb-4">Tools</h3>
-<div class="flex justify-center gap-6 flex-wrap text-center">
+      <h3 class="text-2xl font-bold text-center text-indigo-300 mt-10 mb-4" data-aos="fade-up">Tools</h3>
+      <div class="flex justify-center gap-6 flex-wrap text-center">
 
-  <a href="calculator.html" target="_blank" class="tool-btn">
-    🧮<br><span class="text-indigo-200 font-medium">Calculator</span>
-  </a>
+        <a href="calculator.html" target="_blank" class="tool-btn hover:scale-110 transition" data-aos="zoom-in">
+          🧮<br><span class="text-indigo-200 font-medium">Calculator</span>
+        </a>
 
-  <a href="currency.html" target="_blank" class="tool-btn">
-    💱<br><span class="text-indigo-200 font-medium">Currency Converter</span>
-  </a>
+        <a href="currency.html" target="_blank" class="tool-btn hover:scale-110 transition" data-aos="zoom-in">
+          💱<br><span class="text-indigo-200 font-medium">Currency Converter</span>
+        </a>
 
-  <a href="age_calculator.html" target="_blank" class="tool-btn">
-    🎂<br><span class="text-indigo-200 font-medium">Age Calculator</span>
-  </a>
+        <a href="age_calculator.html" target="_blank" class="tool-btn hover:scale-110 transition" data-aos="zoom-in">
+          🎂<br><span class="text-indigo-200 font-medium">Age Calculator</span>
+        </a>
 
-  <a href="bmi_calculator.html" target="_blank" class="tool-btn">
-    ⚖️<br><span class="text-indigo-200 font-medium">BMI Calculator</span>
-  </a>
+        <a href="bmi_calculator.html" target="_blank" class="tool-btn hover:scale-110 transition" data-aos="zoom-in">
+          ⚖️<br><span class="text-indigo-200 font-medium">BMI Calculator</span>
+        </a>
 
-  <a href="text_calculator.html" target="_blank" class="tool-btn">
-    📝<br><span class="text-indigo-200 font-medium">Text Calculator</span>
-  </a>
+        <a href="text_calculator.html" target="_blank" class="tool-btn hover:scale-110 transition" data-aos="zoom-in">
+          📝<br><span class="text-indigo-200 font-medium">Text Calculator</span>
+        </a>
 
-  <a href="percentage_calculator.html" target="_blank" class="tool-btn">
-    📊<br><span class="text-indigo-200 font-medium">Percentage Calculator</span>
-  </a>
+        <a href="percentage_calculator.html" target="_blank" class="tool-btn hover:scale-110 transition" data-aos="zoom-in">
+          📊<br><span class="text-indigo-200 font-medium">Percentage Calculator</span>
+        </a>
 
-  <!-- New additions -->
-  <a href="temperature_converter.html" target="_blank" class="tool-btn">
-    🌡️<br><span class="text-indigo-200 font-medium">Temperature Converter</span>
-  </a>
+        <a href="temperature_converter.html" target="_blank" class="tool-btn hover:scale-110 transition" data-aos="zoom-in">
+          🌡️<br><span class="text-indigo-200 font-medium">Temperature Converter</span>
+        </a>
 
-  <a href="clock_timer.html" target="_blank" class="tool-btn">
-    ⏰<br><span class="text-indigo-200 font-medium">Clock / Timer</span>
-  </a>
+        <a href="clock_timer.html" target="_blank" class="tool-btn hover:scale-110 transition" data-aos="zoom-in">
+          ⏰<br><span class="text-indigo-200 font-medium">Clock / Timer</span>
+        </a>
 
-  <a href="todo.html" target="_blank" class="tool-btn">
-    🗓️<br><span class="text-indigo-200 font-medium">To-Do List</span>
-  </a>
+        <a href="todo.html" target="_blank" class="tool-btn hover:scale-110 transition" data-aos="zoom-in">
+          🗓️<br><span class="text-indigo-200 font-medium">To-Do List</span>
+        </a>
 
-  <a href="unit_converter.html" target="_blank" class="tool-btn">
-    📦<br><span class="text-indigo-200 font-medium">Unit Converter</span>
-  </a>
-
-</div>
-
-
+        <a href="unit_converter.html" target="_blank" class="tool-btn hover:scale-110 transition" data-aos="zoom-in">
+          📦<br><span class="text-indigo-200 font-medium">Unit Converter</span>
+        </a>
+      </div>
     </div>
   </section>
 
   <!-- ABOUT -->
-  <section id="about" class="page py-20 px-6 hidden">
+  <section id="about" class="page py-20 px-6 hidden" data-aos="fade-up">
     <div class="max-w-6xl mx-auto bg-black/40 backdrop-blur-md rounded-2xl p-10 text-center">
       <h2 class="text-3xl font-bold text-indigo-300 mb-4">About Me</h2>
       <p class="text-indigo-100 mb-6">
         Hello, I'm <span>Taufik Yunus Sayyed</span>, passionate about web & app development, responsive design, and chatbots.
       </p>
       <div class="grid md:grid-cols-3 gap-4">
-        <div class="card">Experience: Interned at TechManha.infotech</div>
-        <div class="card">Skills: UI/UX, Web, App Development</div>
-        <div class="card">Education: MSC & BSC</div>
+        <div class="card" data-aos="flip-left">Experience: Interned at TechManha.infotech</div>
+        <div class="card" data-aos="flip-left">Skills: UI/UX, Web, App Development</div>
+        <div class="card" data-aos="flip-left">Education: MSC & BSC</div>
       </div>
     </div>
   </section>
 
   <!-- CONTACT -->
-  <section id="contact" class="page py-20 px-6 hidden">
+  <section id="contact" class="page py-20 px-6 hidden" data-aos="fade-up">
     <div class="max-w-2xl mx-auto bg-black/40 backdrop-blur-md rounded-2xl p-10">
       <h2 class="text-3xl font-bold text-center text-indigo-300 mb-4">Contact Me</h2>
       <p class="text-center text-indigo-100 mt-2 mb-4">
@@ -186,6 +191,33 @@
   <footer class="py-8 border-t border-white/20 text-center text-indigo-200 bg-black/40 backdrop-blur-md">
     © <span id="year"></span> GALAXY OF INNOVATION — Built with ❤ Taufik Sayyed
   </footer>
+
+  <!-- AOS + Dark/Light Mode + JS -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 1000, once: true });
+
+    // Dark / Light Mode
+    const themeToggle = document.getElementById("themeToggle");
+    const html = document.documentElement;
+
+    if (localStorage.getItem("theme") === "light") {
+      html.classList.remove("dark");
+      themeToggle.textContent = "☀️";
+    }
+
+    themeToggle.addEventListener("click", () => {
+      if (html.classList.contains("dark")) {
+        html.classList.remove("dark");
+        themeToggle.textContent = "☀️";
+        localStorage.setItem("theme", "light");
+      } else {
+        html.classList.add("dark");
+        themeToggle.textContent = "🌙";
+        localStorage.setItem("theme", "dark");
+      }
+    });
+  </script>
 
   <!-- External JS -->
   <script src="script.js"></script>
