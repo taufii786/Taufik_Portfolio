@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📝 Markdown Previewer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen">
+
+  <!-- Container -->
+  <div class="bg-gray-800 p-6 rounded-2xl shadow-lg w-[90%] max-w-3xl text-center">
+    <h1 class="text-2xl font-semibold mb-4 text-indigo-400">📝 Markdown Previewer</h1>
+    <p class="text-sm text-gray-300 mb-4">Type Markdown text below to see the live HTML preview.</p>
+
+    <!-- Input + Output -->
+    <div class="grid md:grid-cols-2 gap-6">
+      <!-- Markdown Input -->
+      <div>
+        <h2 class="text-lg mb-2 text-indigo-300">Markdown Input</h2>
+        <textarea id="markdown-input" 
+                  class="w-full h-64 p-3 rounded-md text-black text-sm outline-none" 
+                  placeholder="# Hello World 🌍
+**Bold text**
+- List item
+[Link](https://example.com)">
+        </textarea>
+      </div>
+
+      <!-- HTML Preview -->
+      <div>
+        <h2 class="text-lg mb-2 text-indigo-300">Preview Output</h2>
+        <div id="preview" 
+             class="w-full h-64 p-3 rounded-md bg-white text-black overflow-auto text-left text-sm">
+          <!-- Live preview will appear here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const input = document.getElementById("markdown-input");
+    const preview = document.getElementById("preview");
+
+    input.addEventListener("input", () => {
+      preview.innerHTML = marked.parse(input.value);
+    });
+
+    // Initialize with default content
+    preview.innerHTML = marked.parse(input.value);
+  </script>
+
+</body>
+</html>
